@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>city population</title>
+<script>
+//用程式對網址發送連結
+function getData(){
+	let name=document.getElementById("name").value;
+	//使用AJAX/XHR技術發送連線
+	let req=new XMLHttpRequest();
+	req.open("post","http://localhost:8080/city.php");//準備連線資訊
+	req.setRequestHeader("Content-type","application/x-www-form-urlencoded");//寫在open後面
+	//註冊load事件，連線完成後觸發load事件
+	req.addEventListener("load",function(){
+		//console.log(req.responseText);
+		let result=document.getElementById("result");
+		result.innerHTML=req.responseText;
+	});
+	req.send("name="+name);//真正送出連線 (信封裡的信紙/內容)  req body
+}
+
+/*
+function getData(){
+	let name=document.getElementById("name").value;
+	//使用AJAX/XHR技術發送連線
+	let req=new XMLHttpRequest();
+	req.open("get","http://localhost:8080/city.php?name="+name);//準備連線資訊
+	//註冊load事件，連線完成後觸發load事件
+	req.addEventListener("load",function(){
+		//console.log(req.responseText);
+		let result=document.getElementById("result");
+		result.innerHTML=req.responseText;
+	});
+	req.send();//真正送出連線
+}
+*/
+</script>
+</head>
+<body>
+	<h3>city population</h3>
+	
+	<div>
+		<input type="text" id="name" oninput="getData();" />
+		<input type="button" value="Search" onclick="getData();"/>
+	</div>
+	<div id="result">  </div>
+	<!---
+	<form action="http://localhost:8080/city.php">
+		<input type="text" name="name" />
+		<input type="submit"  value="Search"/>
+	</form>
+	--->
+</body>
+
+</html>
